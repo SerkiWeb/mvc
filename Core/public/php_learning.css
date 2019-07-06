@@ -1,0 +1,16 @@
+ 
+ /*** formulaire d'inscription ***/
+.registration {
+	border: thin solid black;
+	padding: 10px;
+	border-radius: 10% 10% 10% 10%;
+}
+
+.registration .etoile { color : red; }
+.registration #email_confirmation{
+	width: auto;
+}
+
+.registration button {
+	margin-left: 200px;
+}
