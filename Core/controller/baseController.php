@@ -1,11 +1,11 @@
 <?php
 require(__DIR__ . '/../model/users.php');
-require(__DIR__ . '/../model/registration.php');
 require(__DIR__ . '/../views/template.php');
 
 function users()
 {
-	$users = getUsers();
+	$user = new UserManager();
+	$users = $user->getUsers();
 	$output = TemplateHTML::generate('users', ['users' => $users]);
 	print $output;
 }
@@ -13,6 +13,7 @@ function users()
 function registration()
 {
 	$user = array();
+	$userManager = new UserManager();
 	if (!empty($_POST)) {
 		$user['nom'] 		= filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
 		$user['password'] 	= filter_var( $_POST['password'], FILTER_SANITIZE_STRING);
@@ -22,7 +23,7 @@ function registration()
 			$user['email_confirmation'] = filter_var($_POST['email_confirmation'], FILTER_SANITIZE_NUMBER_INT);
 		}
 
-		$result=register($user);
+		$result=$userManager->register($user);
 		
 		if ($result == false) {
 			die('impossible d\'enregistre l\'utilisateur');
@@ -40,8 +41,9 @@ function registration()
 
 function myProfil()
 {
+	$userManager = new UserManager();
 	$nom = filter_var($_GET['nom'], FILTER_SANITIZE_STRING);
-	$user = getUser($nom);
+	$user = $userManager->getUser($nom);
 	
 	if ($user == false) {
 		die('profil n\'existe pas ?');
@@ -54,13 +56,13 @@ function myProfil()
 function login() 
 {
 	$user = [];
-
+	$userManager = new UserManager();
 	if (!empty($_POST)) {
 
 		$user['nom'] = htmlspecialchars($_POST['nom']);
 		$user['password'] = htmlspecialchars($_POST['password']);
 		
-		if (doLogin($user)) {
+		if ($userManager->doLogin($user)) {
 			header('Location: index.php?action=myprofil&nom=' . $user['nom']);
 		}
 	}
