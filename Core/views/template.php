@@ -1,4 +1,5 @@
 <?php
+namespace PHPLearning\View;
 
 class TemplateHTML { 
 

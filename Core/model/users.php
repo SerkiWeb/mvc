@@ -1,5 +1,10 @@
 <?php
+namespace PHPLearning\Model;
+
 require_once(__DIR__ . '/abstract_manager.php');
+require_once(__DIR__ . '/user.php');
+
+use PHPLearning\Model\User;
 
 class UserManager extends Manager{
 
@@ -40,10 +45,10 @@ class UserManager extends Manager{
 		try {
 			$conn = $this->getConnection();
 			$req = $conn->prepare('SELECT nom, password FROM user WHERE nom = :nom');
-			$req->bindValue(':nom', $nom, PDO::PARAM_STR);
+			$req->bindValue(':nom', $nom, \PDO::PARAM_STR);
 			$req->execute();
 
-			return $user = $req->fetch(PDO::FETCH_ASSOC);
+			return $user = $req->fetch(\PDO::FETCH_ASSOC);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}	
@@ -56,11 +61,12 @@ class UserManager extends Manager{
 		$req = $conn->prepare('SELECT * FROM user WHERE nom=:nom');
 		$req->bindValue(':nom', $user['nom']);
 		$req->execute();
-		$dbUser = $req->fetch(PDO::FETCH_ASSOC);
-
-		if ($dbUser['password'] == $user['password']) {
+		$data = $req->fetch(\PDO::FETCH_ASSOC);
+		$dbUser = new User();
+		$dbUser->hydrate($data);
+		if ($dbUser->getPassword() == $user['password']) {
 			session_start();
-			$_SESSION['nom']=$user['nom'];
+			$_SESSION['nom']=$dbUser->getNom();
 			$_SESSION['login']=true;
 
 			return true;

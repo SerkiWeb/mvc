@@ -1,5 +1,6 @@
 <?php 
 
+namespace PHPLearning\Config;
 
 class Database {
     private $host = "";
@@ -23,11 +24,11 @@ class Database {
     	$this->conn = null;
 
     	try {
-    		$this->conn = new PDO(
+    		$this->conn = new \PDO(
                 'mysql:host=' . $this->host . ";dbname=" . $this->dbname, 
                 $this->username, 
                 $this->password,
-                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)   
+                array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)   
             );
     	} catch(PDOException $exception){
             echo "Connection error: " . $exception->getMessage();
@@ -42,9 +43,9 @@ class Database {
 	    	$this->conn->beginTransaction();
 	    	$req = $this->conn->prepare($sql);
 	    	$req->execute();
-	    	return $req->fetchAll(PDO::FETCH_ASSOC);
+	    	return $req->fetchAll(\PDO::FETCH_ASSOC);
 	    	$this->conn->commit();
-    	} catch(PDOException $e) {
+    	} catch(\PDOException $e) {
     		echo('Database Error 1 : ' . $e->getMessage());
     		$this->conn->rollback();
     	}

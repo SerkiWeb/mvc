@@ -1,5 +1,9 @@
 <?php
+namespace PHPLearning\Model;
+
 require(__DIR__ . '/../../config/database.php');
+
+use PHPLearning\Config\Database;
 
 abstract class Manager {
 
