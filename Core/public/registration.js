@@ -9,19 +9,19 @@ function checkPassword(event)
 	password = event.target;
 	bt_registration = document.getElementById('bt_registration'); 
 	re_1 = /[A-Z]/;
-	re_2 = /[^\w]/;
+	re_2 = /[\$%&µ#@]/;
 
-	if (!re_1.test(password.value) || !re_2.test(password.value)) {
-		password.setCustomValidity('Votre mot de passe doit contenir au moins 1 MAJ et un caractère spéciale');
-		bt_registration.disabled = true;
-		
+	if (!re_1.test(password.value)) {
+		password.setCustomValidity('Votre mot de passe doit contenir au moins 1 MAJ');	
 		return;
 	}
 
-	if (bt_registration.disabled) {
-		bt_registration.disabled = false;
-		password.setCustomValidity('');
+	if (!re_2.test(password.value)) {
+		password.setCustomValidity('Votre mot de passe doit contenir au moins 1 un caractère spéciale');
+		return;	
 	}
+
+	password.setCustomValidity('');
 }
 
 function confPassword(event) {
@@ -30,11 +30,8 @@ function confPassword(event) {
 
 	if (confPassword.value != document.getElementById('password').value) {
 		confPassword.setCustomValidity('vos mot de passe ne correspondent pas');
-		bt_registration.disabled = true;
+	
 		return;
 	}
-
-	if (bt_registration.disabled) {
-		bt_registration.disabled = false;
-	}
+	confPassword.setCustomValidity('');
 }

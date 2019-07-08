@@ -29,8 +29,8 @@
 		    	<input type="email" name="email" class="form-control" id="email" required>
 		  	</div>
 		  	<div class="form-group">
-		    	<label for="nom">Envoyez un courrier de confirmation<span class="etoile">&nbsp;*</span></label>
-		    	<input type="checkbox" name="email_confirmation" class="form-control" id="email_confirmation" required>
+		    	<label for="email_confirmation">Envoyez un courrier de confirmation</label>
+		    	<input type="checkbox" name="email_confirmation" class="form-control" id="email_confirmation">
 		  	</div>
 			 <button id="bt_registration" type="submit" class="btn btn-primary">Submit</button>
 		</form>
