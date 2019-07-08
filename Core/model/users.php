@@ -1,13 +1,12 @@
 <?php
-require(__DIR__ . '/../../config/database.php');
+require_once(__DIR__ . '/abstract_manager.php');
 
-class UserManager {
+class UserManager extends Manager{
 
 	public function register($user)
 	{
-		$db = new Database();
-		$conn= $db->getConnection();
 
+		$conn = $this->getConnection();
 		$req = $conn->prepare('INSERT INTO user (nom, password, newsletter, email) 
 			VALUES (:nom, :password, :newsletter, :email)');
 		$req->bindValue(':nom', $user['nom'], PDO::PARAM_STR);
@@ -20,10 +19,9 @@ class UserManager {
 	}
 
 	public function getUsers() {
-		$db = new Database();
-		$conn = $db->getConnection();
 
 		try {
+			$conn = $this->getConnection();
 			$conn->beginTransaction();
 			$req = $conn->prepare('SELECT * FROM user');
 			$req->execute();
@@ -39,10 +37,8 @@ class UserManager {
 
 	public function getUser($nom)
 	{
-		$db = new Database();
-		$conn = $db->getConnection();
-
 		try {
+			$conn = $this->getConnection();
 			$req = $conn->prepare('SELECT nom, password FROM user WHERE nom = :nom');
 			$req->bindValue(':nom', $nom, PDO::PARAM_STR);
 			$req->execute();
@@ -56,10 +52,7 @@ class UserManager {
 	public function doLogin($user)
 	{
 		
-		echo('test');
-		$db = new Database();
-		$conn = $db->getConnection();
-
+		$conn = $this->getConnection();
 		$req = $conn->prepare('SELECT * FROM user WHERE nom=:nom');
 		$req->bindValue(':nom', $user['nom']);
 		$req->execute();

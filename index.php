@@ -1,6 +1,6 @@
 <?php
 session_start();
-require(__DIR__ . '/Core/controller/baseController.php');
+require(__DIR__ . '/Core/controller/base_controller.php');
 
 
 $routes = array(
@@ -10,19 +10,19 @@ $routes = array(
 	'myprofil' => 'myprofil',
 );
 
-if (!isLogged()) {	
+if (isLogged()) {	
 
-	login();
+	$action = filter_var($_GET['action'], FILTER_SANITIZE_STRING);
 
-} else {
-
-	$action = $_GET['action'];
-	
 	if (!in_array($action, $routes)) {
 		$action = 'myprofil';
-	} else {
-		call_user_func($action);
 	}
+
+	$func = array(new BaseController, $action);
+	$func();
+
+} else {
+	$controller->login();
 }
 
 function isLogged()
