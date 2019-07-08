@@ -33,9 +33,6 @@ class BaseController extends AbstractController {
 				die('impossible d\'enregistre l\'utilisateur');
 			}
 
-			if (condition) {
-				# code...
-			}
 			header('Location: index.php?action=myprofil&nom=' . $user['nom']);
 		}
 
