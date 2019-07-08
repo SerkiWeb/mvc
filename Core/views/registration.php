@@ -11,7 +11,7 @@
 			  '); 
 			}
 		?>
-		<form action="index.php?action=registration" method="post" class="registration">
+		<form enctype="multipart/form-data" action="index.php?action=registration" method="post" class="registration">
 			<div class="form-group">
 		    	<label for="nom">nom<span class="etoile">&nbsp;*</span></label>
 		    	<input type="text" name="nom" class="form-control" id="nom" placeholder="nom" required>
@@ -31,6 +31,11 @@
 		  	<div class="form-group">
 		    	<label for="email_confirmation">Envoyez un courrier de confirmation</label>
 		    	<input type="checkbox" name="email_confirmation" class="form-control" id="email_confirmation">
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="photo">photo de profil<span class="etoile">&nbsp;*</span></label>
+		    	<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+		    	<input id="photo" name="photo" type="file">
 		  	</div>
 			 <button id="bt_registration" type="submit" class="btn btn-primary">Submit</button>
 		</form>
