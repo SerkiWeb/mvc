@@ -2,6 +2,8 @@
 require_once(__DIR__ . '/../model/users.php');
 require_once(__DIR__ . '/abstract_controller.php');
 
+use PHPLearning\Model\UserManager;
+use PHPLearning\Controller\AbstractController;
 class BaseController extends AbstractController {
 
 	public function users()

@@ -1,7 +1,11 @@
 <?php
+namespace PHPLearning\Controller;
 
 require_once(__DIR__ . '/../../config/database.php');
 require_once(__DIR__ . '/../views/template.php');
+
+use \PHPLearning\Config\Database;
+use \PHPLearning\View\TemplateHTML;
 
 abstract class AbstractController {
 
