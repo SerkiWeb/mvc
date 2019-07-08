@@ -12,12 +12,14 @@ class UserManager extends Manager{
 	{
 
 		$conn = $this->getConnection();
-		$req = $conn->prepare('INSERT INTO user (nom, password, newsletter, email) 
-			VALUES (:nom, :password, :newsletter, :email)');
-		$req->bindValue(':nom', $user['nom'], PDO::PARAM_STR);
-		$req->bindValue(':password', $user['password'], PDO::PARAM_STR);
+		$req = $conn->prepare('INSERT INTO user (nom, password, newsletter, email, nom_photo, extension) 
+			VALUES (:nom, :password, :newsletter, :email, :nom_photo, :extension)');
+		$req->bindValue(':nom', $user['nom'], \PDO::PARAM_STR);
+		$req->bindValue(':password', $user['password'], \PDO::PARAM_STR);
 		$req->bindValue(':newsletter', $user['newsletter']);
-		$req->bindValue(':email', $user['email']);
+		$req->bindValue(':email', $user['email'], \PDO::PARAM_STR);
+		$req->bindValue(':nom_photo', $user['nom_photo'], \PDO::PARAM_STR);
+		$req->bindValue(':extension', $user['extension'], \PDO::PARAM_STR);
 		$user = $req->execute();
 
 		return $user;

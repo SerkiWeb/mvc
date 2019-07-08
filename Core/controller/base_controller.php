@@ -22,11 +22,14 @@ class BaseController extends AbstractController {
 			$user['nom'] 		= filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
 			$user['password'] 	= filter_var( $_POST['password'], FILTER_SANITIZE_STRING);
 			$user['email'] 		= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-			$user['newsletter'] = filter_var($_POST['newsletter'], FILTER_SANITIZE_NUMBER_INT);
-			if (isset($_POST['email_confirmation'])) {
-				$user['email_confirmation'] = filter_var($_POST['email_confirmation'], FILTER_SANITIZE_NUMBER_INT);
+			$user['nom_photo'] = filter_var($_FILES['photo']['name'], FILTER_SANITIZE_STRING);
+			$user['extension'] = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+			$user['newsletter'] = false;
+			if (isset($_POST['newsletter'])) {
+				$user['newsletter'] = filter_var($_POST['newsletter'], FILTER_SANITIZE_NUMBER_INT);
 			}
 
+			$this->handleUpload($user);
 			$result=$userManager->register($user);
 			
 			if ($result == false) {
@@ -38,6 +41,17 @@ class BaseController extends AbstractController {
 
 		$output = $this->generateHTML('registration', ['user'=> $user]);	
 		print $output;
+	}
+
+	protected function handleUpload($user)
+	{
+		$uploadDir = 'uploads/';
+		$uploadFile = $uploadDir . $user['nom_photo'];
+		if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile)) {
+
+		} else {
+			print_r($_FILES['photo']);
+		}
 	}
 
 	public function myProfil()
