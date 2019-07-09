@@ -8,6 +8,29 @@ class User {
 	private $password; 
 	private $newsletter; 
 	private $email;
+	private $photo;
+	private $extension;
+
+	public function getExtension()
+	{
+		return $this->extension;
+	}
+	
+	public function getPhoto()
+	{
+		return $this->photo;
+	}
+
+	public function setPhoto($photo)
+	{
+		$this->photo = $photo;
+		return $this;
+	}
+
+	public function setExtension($extension)
+	{
+		$this->extension = $extension;
+	}
 
 	public function setNom($nom){
 		$this->nom = $nom;

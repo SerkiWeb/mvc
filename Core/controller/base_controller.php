@@ -19,12 +19,13 @@ class BaseController extends AbstractController {
 		$user = array();
 		$userManager = new UserManager();
 		if (!empty($_POST)) {
+
+			$user['newsletter'] = false;
 			$user['nom'] 		= filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
 			$user['password'] 	= filter_var( $_POST['password'], FILTER_SANITIZE_STRING);
 			$user['email'] 		= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 			$user['nom_photo'] = filter_var($_FILES['photo']['name'], FILTER_SANITIZE_STRING);
 			$user['extension'] = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-			$user['newsletter'] = false;
 			if (isset($_POST['newsletter'])) {
 				$user['newsletter'] = filter_var($_POST['newsletter'], FILTER_SANITIZE_NUMBER_INT);
 			}

@@ -32,7 +32,7 @@ class UserManager extends Manager{
 			$conn->beginTransaction();
 			$req = $conn->prepare('SELECT * FROM user');
 			$req->execute();
-			$users = $req->fetchAll(PDO::FETCH_ASSOC);
+			$users = $req->fetchAll(\PDO::FETCH_ASSOC);
 			$conn->commit();
 		} catch (Exception $e) {
 			$conn->rollback();
@@ -46,7 +46,7 @@ class UserManager extends Manager{
 	{
 		try {
 			$conn = $this->getConnection();
-			$req = $conn->prepare('SELECT nom, password FROM user WHERE nom = :nom');
+			$req = $conn->prepare('SELECT nom, password, nom_photo, extension FROM user WHERE nom = :nom');
 			$req->bindValue(':nom', $nom, \PDO::PARAM_STR);
 			$req->execute();
 
