@@ -14,3 +14,14 @@
 .registration button {
 	margin-left: 200px;
 }
+
+
+.user img.icon {
+  width: 20px;
+  height: 20px;
+  float: inline-end;
+}
+
+.user td {
+	padding-left: 80%;
+}
