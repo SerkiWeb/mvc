@@ -29,8 +29,8 @@
 		    	<input type="email" name="email" class="form-control" id="email" required>
 		  	</div>
 		  	<div class="form-group">
-		    	<label for="email_confirmation">Envoyez un courrier de confirmation</label>
-		    	<input type="checkbox" name="email_confirmation" class="form-control" id="email_confirmation">
+		    	<label for="newsletter">Envoyez un courrier de confirmation</label>
+		    	<input type="checkbox" name="newsletter" class="form-control" id="newsletter">
 		  	</div>
 		  	<div class="form-group">
 		    	<label for="photo">photo de profil<span class="etoile">&nbsp;*</span></label>
