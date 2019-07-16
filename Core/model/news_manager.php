@@ -19,7 +19,7 @@ class NewsManager extends Manager
 
 	public function create($news)
 	{
-		$this->newsDBManager->create($news);
+		
 	}
 
 }
