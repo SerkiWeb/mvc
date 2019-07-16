@@ -7,10 +7,16 @@ use PHPLearning\Controller\AbstractController;
 
 class BaseController extends AbstractController {
 
+	private $userManager;
+
+	public function __construct()
+	{
+		$this->userManager = new UserManager();
+	}
+
 	public function users()
 	{
-		$user = new UserManager();
-		$users = $user->getUsers();
+		$users = $this->userManager->getUsers();
 		$output = $this->generateHTML('users', ['users' => $users]);
 		print $output;
 	}
@@ -60,8 +66,7 @@ class BaseController extends AbstractController {
 	public function myProfil()
 	{
 		$nom = filter_var($_GET['nom'], FILTER_SANITIZE_STRING);
-		$userManager = new UserManager();
-		$user = $userManager->getUser($nom);
+		$user = $this->userManager->getUser($nom);
 		
 		if ($user == false) {
 			die('profil n\'existe pas ?');
@@ -74,14 +79,13 @@ class BaseController extends AbstractController {
 	public function login() 
 	{
 		$user = [];
-		$userManager = new UserManager();
 		if (!empty($_POST)) {
 
 			$user['nom'] = htmlspecialchars($_POST['nom']);
 			$user['password'] = htmlspecialchars($_POST['password']);
 			
 			if ($userManager->doLogin($user)) {
-				header('Location: index.php?action=myprofil&nom=' . $user['nom']);
+				header('Location: index.php?action=myProfil&nom=' . $user['nom']);
 			}
 		}
 
