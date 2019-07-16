@@ -1,7 +1,7 @@
 <?php
-namespace PHPLearning\Model;
+namespace PHPLearning\Controller;
 
-require_once(__DIR__ . 'abstract_controller.php');
+require_once(__DIR__ . '/abstract_controller.php');
 
 class NewsController extends AbstractController
 {

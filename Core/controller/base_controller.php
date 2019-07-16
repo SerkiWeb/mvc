@@ -18,11 +18,13 @@ class BaseController extends AbstractController {
 	public function registration()
 	{
 		$user = array();
+		$userManager = new UserManager();
 		if (!empty($_POST)) {
 
 			$user['newsletter'] = false;
 			$user['nom'] 		= filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
 			$user['password'] 	= filter_var( $_POST['password'], FILTER_SANITIZE_STRING);
+			$user['password']	= password_hash($user['password'], PASSWORD_DEFAULT);
 			$user['email'] 		= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 			$user['nom_photo'] = filter_var($_FILES['photo']['name'], FILTER_SANITIZE_STRING);
 			$user['extension'] = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
@@ -31,7 +33,7 @@ class BaseController extends AbstractController {
 			}
 
 			$this->handleUpload($user);
-			$result=$this->userManager->register($user);
+			$result=$userManager->register($user);
 			
 			if ($result == false) {
 				die('impossible d\'enregistre l\'utilisateur');
@@ -58,6 +60,7 @@ class BaseController extends AbstractController {
 	public function myProfil()
 	{
 		$nom = filter_var($_GET['nom'], FILTER_SANITIZE_STRING);
+		$userManager = new UserManager();
 		$user = $userManager->getUser($nom);
 		
 		if ($user == false) {
