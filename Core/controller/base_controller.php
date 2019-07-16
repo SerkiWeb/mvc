@@ -4,6 +4,7 @@ require_once(__DIR__ . '/abstract_controller.php');
 
 use PHPLearning\Model\UserManager;
 use PHPLearning\Controller\AbstractController;
+
 class BaseController extends AbstractController {
 
 	public function users()
@@ -17,7 +18,6 @@ class BaseController extends AbstractController {
 	public function registration()
 	{
 		$user = array();
-		$userManager = new UserManager();
 		if (!empty($_POST)) {
 
 			$user['newsletter'] = false;
@@ -31,7 +31,7 @@ class BaseController extends AbstractController {
 			}
 
 			$this->handleUpload($user);
-			$result=$userManager->register($user);
+			$result=$this->userManager->register($user);
 			
 			if ($result == false) {
 				die('impossible d\'enregistre l\'utilisateur');
@@ -57,7 +57,6 @@ class BaseController extends AbstractController {
 
 	public function myProfil()
 	{
-		$userManager = new UserManager();
 		$nom = filter_var($_GET['nom'], FILTER_SANITIZE_STRING);
 		$user = $userManager->getUser($nom);
 		
