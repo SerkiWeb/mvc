@@ -4,6 +4,7 @@ require_once(__DIR__ . '/abstract_controller.php');
 
 use PHPLearning\Model\UserManager;
 use PHPLearning\Controller\AbstractController;
+
 class BaseController extends AbstractController {
 
 	public function users()
@@ -23,6 +24,7 @@ class BaseController extends AbstractController {
 			$user['newsletter'] = false;
 			$user['nom'] 		= filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
 			$user['password'] 	= filter_var( $_POST['password'], FILTER_SANITIZE_STRING);
+			$user['password']	= password_hash($user['password'], PASSWORD_DEFAULT);
 			$user['email'] 		= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 			$user['nom_photo'] = filter_var($_FILES['photo']['name'], FILTER_SANITIZE_STRING);
 			$user['extension'] = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
@@ -57,8 +59,8 @@ class BaseController extends AbstractController {
 
 	public function myProfil()
 	{
-		$userManager = new UserManager();
 		$nom = filter_var($_GET['nom'], FILTER_SANITIZE_STRING);
+		$userManager = new UserManager();
 		$user = $userManager->getUser($nom);
 		
 		if ($user == false) {

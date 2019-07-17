@@ -66,10 +66,13 @@ class UserManager extends Manager{
 		$data = $req->fetch(\PDO::FETCH_ASSOC);
 		$dbUser = new User();
 		$dbUser->hydrate($data);
-		if ($dbUser->getPassword() == $user['password']) {
-			session_start();
-			$_SESSION['nom']=$dbUser->getNom();
-			$_SESSION['login']=true;
+		if (password_verify($user['password'], $dbUser->getPassword())) {
+
+			if (empty($_SESSION['login'])) {
+				session_start();
+				$_SESSION['nom']=$dbUser->getNom();
+				$_SESSION['login']=true;
+			}
 
 			return true;
 		}
