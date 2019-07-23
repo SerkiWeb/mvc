@@ -17,7 +17,7 @@ abstract class AbstractController {
 		$this->conn = $db->getConnection();
 	}
 
-	public function generateHTML($template, $params) {
+	protected function generateHTML($template, $params) {
 		return TemplateHTML::generate($template, $params);
 	} 
 }
