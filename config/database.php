@@ -30,7 +30,7 @@ class Database {
                 $this->password,
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)   
             );
-    	} catch(\PDOException $exception){
+    	} catch(PDOException $exception){
             echo "Connection error: " . $exception->getMessage();
         }
  
