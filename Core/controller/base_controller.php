@@ -46,6 +46,7 @@ class BaseController extends AbstractController {
 			}
 
 			header('Location: index.php?action=myprofil&nom=' . $user['nom']);
+			exit;
 		}
 
 		$output = $this->generateHTML('registration', ['user'=> $user]);	
@@ -84,7 +85,7 @@ class BaseController extends AbstractController {
 			$user['nom'] = htmlspecialchars($_POST['nom']);
 			$user['password'] = htmlspecialchars($_POST['password']);
 			
-			if ($userManager->doLogin($user)) {
+			if ($this->userManager->doLogin($user)) {
 				header('Location: index.php?action=myProfil&nom=' . $user['nom']);
 			}
 		}
@@ -93,4 +94,10 @@ class BaseController extends AbstractController {
 		$output = $this->generateHTML('login', []);	
 		print $output;
 	}
+
+	public function method404()
+	{
+		$output = $this->generateHTML('not_found', []);	
+		print $output;	
+	} 
 }
